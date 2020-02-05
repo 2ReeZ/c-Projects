@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <unistd.h> //added header to use sleep()
+using namespace std;
+
+int main() {
+	cout << "\tWelcome to the battle of Runterra!\n";
+	sleep(5); //adding sleep through adventure to change pace of interaction
+
+	int health = 10 , attack, block, turns = 0;
+	srand(time(0));
+	
+	// start the encounter
+	cout << "You walk into the woods, where a great assassin terrorizes anyone who enters.\n";
+	sleep(5);
+	cout << "Your only defense is a block.\n";
+	sleep(5);
+	cout << "If you block enough attacks before your health reaches 0, you live and defeat the assassin.\n";
+	sleep(6);
+	cout << "\tGOOD LUCK!\n";
+	sleep(3);
+
+	// do while loop
+	do {
+		bool debug = false; // debug mode on/off switch
+		turns++;
+		
+		attack = rand() % 5;
+		block = rand() % 5;
+
+		if(block >= attack) {
+			cout << "You had a successfull block!\n";
+			sleep(2);
+		} else {
+			cout << "Assassin struck past your block and took some of your health.\n";
+			health -= attack;
+			sleep(2);
+
+			if(health <= 5 && health > 0) {
+				cout << "You need to see a doctor! Your health is LOW!!\n"; //adding doctor
+			}
+			//debug mode
+		} if(debug) {
+			cout << "attack = " << attack << ".\n";
+			cout << "block = " << block << ".\n";
+		}
+	} while (health > 0 && turns < rand()); //change rand() to a number to limit turns
+
+	sleep(3);
+	if(health > 0) {
+		//congratulate player
+		cout << "You have survived the attack and have won the battle!";
+	} else {
+		//tell player they're dead
+		cout << "The assassin has killed you...";
+	}
+}
